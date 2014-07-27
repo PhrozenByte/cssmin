@@ -41,13 +41,7 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
 	 */
 	private $reMatch = null;
 	/**
-	 * Regular expression replace the value.
-	 * 
-	 * @var string
-	 */
-	private $reReplace = "\"\${1}\" . \$this->transformation[\"\${2}\"] . \"\${3}\"";
-	/**
-	 * Transformation table used by the {@link CssConvertFontWeightMinifierPlugin::$reReplace replace regular expression}.
+	 * Transformation table used by the {@link CssConvertFontWeightMinifierPlugin::reReplace() replacement method}.
 	 * 
 	 * @var array
 	 */
@@ -59,7 +53,7 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
 	/**
 	 * Overwrites {@link aCssMinifierPlugin::__construct()}.
 	 * 
-	 * The constructor will create the {@link CssConvertFontWeightMinifierPlugin::$reReplace replace regular expression}
+	 * The constructor will create the {@link CssConvertFontWeightMinifierPlugin::$reMatch replace regular expression}
 	 * based on the {@link CssConvertFontWeightMinifierPlugin::$transformation transformation table}.
 	 * 
 	 * @param CssMinifier $minifier The CssMinifier object of this plugin.
@@ -67,7 +61,7 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
 	 */
 	public function __construct(CssMinifier $minifier)
 		{
-		$this->reMatch = "/(^|\s)+(" . implode("|", array_keys($this->transformation)). ")(\s|$)+/eiS";
+		$this->reMatch = "/(^|\s)+(" . implode("|", array_keys($this->transformation)). ")(\s|$)+/iS";
 		parent::__construct($minifier);
 		}
 	/**
@@ -80,9 +74,19 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
 		{
 		if (in_array($token->Property, $this->include) && preg_match($this->reMatch, $token->Value, $m))
 			{
-			$token->Value = preg_replace($this->reMatch, $this->reReplace, $token->Value);
+			$token->Value = preg_replace_callback($this->reMatch, array($this, 'reReplace'), $token->Value);
 			}
 		return false;
+		}
+	/**
+	 * Callback for replacement value.
+	 *
+	 * @param array $match
+	 * @return string
+	 */
+	private function reReplace($match)
+		{
+		return $match[1] . $this->transformation[strtolower($match[2])] . $match[3];
 		}
 	/**
 	 * Implements {@link aMinifierPlugin::getTriggerTokens()}

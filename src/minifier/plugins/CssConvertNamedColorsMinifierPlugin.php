@@ -31,13 +31,7 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
 	 */
 	private $reMatch = null;
 	/**
-	 * Regular expression replacing the value.
-	 * 
-	 * @var string
-	 */
-	private $reReplace = "\"\${1}\" . \$this->transformation[strtolower(\"\${2}\")] . \"\${3}\"";
-	/**
-	 * Transformation table used by the {@link CssConvertNamedColorsMinifierPlugin::$reReplace replace regular expression}.
+	 * Transformation table used by the {@link CssConvertNamedColorsMinifierPlugin::reReplace() replacement method}.
 	 * 
 	 * @var array
 	 */
@@ -183,7 +177,7 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
 	/**
 	 * Overwrites {@link aCssMinifierPlugin::__construct()}.
 	 * 
-	 * The constructor will create the {@link CssConvertNamedColorsMinifierPlugin::$reReplace replace regular expression}
+	 * The constructor will create the {@link CssConvertNamedColorsMinifierPlugin::$reMatch replace regular expression}
 	 * based on the {@link CssConvertNamedColorsMinifierPlugin::$transformation transformation table}.
 	 * 
 	 * @param CssMinifier $minifier The CssMinifier object of this plugin.
@@ -192,7 +186,7 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
 	 */
 	public function __construct(CssMinifier $minifier, array $configuration = array())
 		{
-		$this->reMatch = "/(^|\s)+(" . implode("|", array_keys($this->transformation)) . ")(\s|$)+/eiS";
+		$this->reMatch = "/(^|\s)+(" . implode("|", array_keys($this->transformation)) . ")(\s|$)+/iS";
 		parent::__construct($minifier, $configuration);
 		}
 	/**
@@ -212,9 +206,19 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
 		// Declaration value contains a value in the transformation table => regular expression replace
 		elseif (preg_match($this->reMatch, $token->Value))
 			{
-			$token->Value = preg_replace($this->reMatch, $this->reReplace, $token->Value);
+			$token->Value = preg_replace_callback($this->reMatch, array($this, 'reReplace'), $token->Value);
 			}
 		return false;
+		}
+	/**
+	 * Callback for replacement value.
+	 *
+	 * @param array $match
+	 * @return string
+	 */
+	private function reReplace($match)
+		{
+		return $match[1] . $this->transformation[strtolower($match[2])] . $match[3];
 		}
 	/**
 	 * Implements {@link aMinifierPlugin::getTriggerTokens()}
