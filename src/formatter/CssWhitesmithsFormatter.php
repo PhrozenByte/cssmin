@@ -77,10 +77,10 @@ class CssWhitesmithsFormatter extends aCssFormatter
 				$r[] = $this->indent . $indent . "{";
 				$level++;
 				}
-			elseif ($class == "CssAtFontFaceDeclarationToken"
+			elseif ($class === "CssAtFontFaceDeclarationToken"
 				|| $class === "CssAtKeyframesRulesetDeclarationToken"
 				|| $class === "CssAtPageDeclarationToken"
-				|| $class == "CssAtVariablesDeclarationToken"
+				|| $class === "CssAtVariablesDeclarationToken"
 				|| $class === "CssRulesetDeclarationToken"
 				)
 				{
