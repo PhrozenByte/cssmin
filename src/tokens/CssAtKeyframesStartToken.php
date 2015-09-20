@@ -48,7 +48,7 @@ class CssAtKeyframesStartToken extends aCssAtBlockStartToken
 		{
 			return "@-moz-keyframes " . $this->Name . " {";
 		}
-		return "@" . $this->AtRuleName . " \"" . $this->Name . "\"{";
+		return "@" . $this->AtRuleName . " " . $this->Name . "{";
 		}
 	}
 ?>

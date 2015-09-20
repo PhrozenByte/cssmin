@@ -49,7 +49,7 @@ class CssWhitesmithsFormatter extends aCssFormatter
 				}
 			elseif ($class === "CssAtKeyframesStartToken")
 				{
-				$r[] = $indent . "@keyframes \"" . $token->Name . "\"";
+				$r[] = $indent . "@keyframes " . $token->Name;
 				$r[] = $this->indent . $indent . "{";
 				$level++;
 				}
