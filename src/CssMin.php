@@ -34,12 +34,6 @@
 class CssMin
 	{
 	/**
-	 * Index of classes
-	 * 
-	 * @var array
-	 */
-	private static $classIndex = array();
-	/**
 	 * Parse/minify errors
 	 * 
 	 * @var array
@@ -59,10 +53,7 @@ class CssMin
 	 */
 	public static function autoload($class)
 		{
-		if (isset(self::$classIndex[$class]))
-			{
-			require(self::$classIndex[$class]);
-			}
+		// Do nothing, this is a Composer library
 		}
 	/**
 	 * Return errors
@@ -89,46 +80,7 @@ class CssMin
 	 */
 	public static function initialise()
 		{
-		// Create the class index for autoloading or including
-		$paths = array(dirname(__FILE__));
-		while (list($i, $path) = each($paths))
-			{
-			$subDirectorys = glob($path . "*", GLOB_MARK | GLOB_ONLYDIR | GLOB_NOSORT);
-			if (is_array($subDirectorys))
-				{
-				foreach ($subDirectorys as $subDirectory)
-					{
-					$paths[] = $subDirectory;
-					}
-				}
-			$files = glob($path . "*.php", 0);
-			if (is_array($files))
-				{
-				foreach ($files as $file)
-					{
-					$class = substr(basename($file), 0, -4);
-					self::$classIndex[$class] = $file;
-					}
-				}
-			}
-		krsort(self::$classIndex);
-		// Only use autoloading if spl_autoload_register() is available and no __autoload() is defined (because 
-		// __autoload() breaks if spl_autoload_register() is used. 
-		if (function_exists("spl_autoload_register") && !is_callable("__autoload"))
-			{
-			spl_autoload_register(array(__CLASS__, "autoload"));
-			}
-		// Otherwise include all class files
-		else
-			{
-			foreach (self::$classIndex as $class => $file)
-				{
-				if (!class_exists($class))
-					{
-					require_once($file);
-					}
-				}
-			}
+		// Do nothing, this is a Composer library
 		}
 	/**
 	 * Minifies CSS source.
@@ -183,6 +135,4 @@ class CssMin
 			}
 		}
 	}
-// Initialises CssMin
-CssMin::initialise();
 ?>
