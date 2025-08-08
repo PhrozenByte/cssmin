@@ -9,7 +9,13 @@
         {
             "name": "Joe Scylla",
             "email": "joe.scylla@gmail.com",
-            "homepage": "https://profiles.google.com/joe.scylla"
+            "homepage": "https://profiles.google.com/joe.scylla",
+            "role": "Original Author"
+        },
+        {
+            "name": "Daniel Rudolf",
+            "homepage": "https://www.daniel-rudolf.de",
+            "role": "Maintainer"
         }
     ],
     "require": {
