@@ -22,6 +22,15 @@
             "role": "Maintainer"
         }
     ],
+    "replace": {
+        "natxet/cssmin": "*",
+        "skeeks/cssmin": "*",
+        "surda/cssmin": "*",
+        "skavunga/cssmin": "*",
+        "innogames/cssmin": "*",
+        "supa86000/zf2-css-min": "*",
+        "supa-creation/php-css-min": "*"
+    },
     "require": {
         "php": ">=5.0"
     },
