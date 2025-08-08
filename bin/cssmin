@@ -1,5 +1,16 @@
 #!/usr/bin/env php
 <?php
+/**
+ * Command line interface (CLI) for CssMin.
+ * 
+ * Use CssMin to minify CSS via the command line, supports both files and stdin as input.
+ * 
+ * @package		CssMin
+ * @link		https://github.com/PhrozenByte/cssmin
+ * @author		Daniel Rudolf <https://www.daniel-rudolf.de>
+ * @copyright	2025 Daniel Rudolf <https://www.daniel-rudolf.de>
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
 
 if (!file_exists(__DIR__ . "/../vendor/autoload.php"))
 	{
