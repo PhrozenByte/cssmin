@@ -34,6 +34,7 @@
     "require": {
         "php": ">=5.0"
     },
+    "bin": [ "bin/cssmin" ],
     "autoload": {
         "classmap": [ "src/" ]
     }
