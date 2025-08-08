@@ -5,6 +5,10 @@
     "type": "library",
     "license": "MIT",
     "homepage": "http://code.google.com/p/cssmin/",
+    "support": {
+        "source": "https://github.com/PhrozenByte/cssmin",
+        "issues": "https://github.com/PhrozenByte/cssmin/issues"
+    },
     "authors": [
         {
             "name": "Joe Scylla",
