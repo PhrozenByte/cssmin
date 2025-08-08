@@ -11,6 +11,11 @@
  */
 class CssAtMediaStartToken extends aCssAtBlockStartToken
 	{
+	/**
+	 * Media types of the @media at-rule.
+	 * 
+	 * @var array
+	 */
 	public $MediaTypes = [];
 	/**
 	 * Sets the properties of the @media at-rule.
